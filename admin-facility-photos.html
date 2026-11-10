@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facility Photos | AskMeKARE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            background: #0b111a;
+            color: #f3f5fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h1, h2 {
+            color: #f5bd50;
+        }
+
+        .panel {
+            background: #131e2c;
+            border: 1px solid #2a3a50;
+            border-radius: 10px;
+            padding: 22px;
+            margin-bottom: 25px;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            margin: 15px 0;
+            color: #f3f5fa;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #f5bd50;
+            color: #0b111a;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background: #a93232;
+            color: white;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .photo-card {
+            background: #131e2c;
+            border: 1px solid #2a3a50;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 7px;
+        }
+
+        .photo-name {
+            overflow-wrap: anywhere;
+            color: #a9b6ca;
+        }
+
+        .success {
+            color: #7ee0a0;
+        }
+
+        .error {
+            color: #ff8585;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Facility Photos</h1>
+
+    <h2 th:text="${facility.name}">Facility Name</h2>
+
+    <p class="success" th:if="${success}" th:text="${success}"></p>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <div class="panel">
+
+        <h2>Upload Photos</h2>
+
+        <p>Choose JPG, JPEG or PNG images. Maximum 10 MB per photo.</p>
+
+        <form th:action="@{/admin/facilities/{id}/photos/upload(id=${facility.id})}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <input type="file"
+                   name="files"
+                   accept=".jpg,.jpeg,.png"
+                   multiple
+                   required>
+
+            <button type="submit" class="btn">
+                Upload Photos
+            </button>
+
+        </form>
+
+    </div>
+
+    <h2>Uploaded Photos</h2>
+
+    <div th:if="${#lists.isEmpty(photos)}" class="panel">
+        No photos uploaded for this facility yet.
+    </div>
+
+    <div class="photo-grid">
+
+        <div class="photo-card" th:each="photo : ${photos}">
+
+            <a th:href="@{/admin/facilities/photos/{id}(id=${photo.id})}"
+               target="_blank">
+
+                <img th:src="@{/admin/facilities/photos/{id}(id=${photo.id})}"
+                     th:alt="${photo.originalFileName}">
+            </a>
+
+            <p class="photo-name"
+               th:text="${photo.originalFileName}">
+            </p>
+
+            <form th:action="@{/admin/facilities/photos/delete/{id}(id=${photo.id})}"
+                  method="post"
+                  onsubmit="return confirm('Delete this photo?');">
+
+                <button type="submit" class="btn delete-btn">
+                    Delete Photo
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <a th:href="@{/admin/facilities}" class="btn">
+        Back to Facilities
+    </a>
+
+</div>
+
+</body>
+</html>

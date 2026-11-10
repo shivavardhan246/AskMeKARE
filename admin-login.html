@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - AskMeKare</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b111a;
+            color: #f3f5fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-box {
+            background: #131e2c;
+            padding: 35px;
+            border-radius: 12px;
+            width: 320px;
+            border: 1px solid #2a3a50;
+        }
+
+        h2 {
+            color: #f5bd50;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            box-sizing: border-box;
+            border-radius: 6px;
+            border: 1px solid #2a3a50;
+            background: #0b111a;
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #f5bd50;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h2>AskMeKare Admin</h2>
+
+    <form th:action="@{/admin/login}" method="post">
+
+        <input type="email"
+               name="username"
+               placeholder="Admin Email"
+               required>
+
+        <input type="password"
+               name="password"
+               placeholder="Password"
+               required>
+
+        <button type="submit">Admin Login</button>
+
+    </form>
+
+    <p class="message" th:if="${param.error}">
+        Invalid admin email or password.
+    </p>
+
+    <p class="message" th:if="${param.logout}">
+        Admin logged out successfully.
+    </p>
+
+</div>
+
+</body>
+</html>

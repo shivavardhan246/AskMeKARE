@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Student | AskMeKARE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #0b111a;
+            color: #f3f5fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #131e2c;
+            border: 1px solid #2a3a50;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #f5bd50;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            color: #a9b6ca;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #2a3a50;
+            border-radius: 6px;
+            background: #0b111a;
+            color: white;
+            font-size: 15px;
+        }
+
+        .save-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            background: #f5bd50;
+            color: #0b111a;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #f5bd50;
+            text-decoration: none;
+        }
+
+        .message {
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 6px;
+            background: #482323;
+            color: #ffaaaa;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Edit Student</h1>
+
+    <div th:if="${errorMessage}"
+         class="message"
+         th:text="${errorMessage}">
+    </div>
+
+    <form th:action="@{/admin/students/update/{id}(id=${student.id})}"
+          method="post">
+
+        <label>Student ID</label>
+        <input type="text"
+               th:value="${student.id}"
+               readonly>
+
+        <label>Student Name</label>
+        <input type="text"
+               name="name"
+               th:value="${student.name}"
+               required>
+
+        <label>Email Address</label>
+        <input type="email"
+               name="email"
+               th:value="${student.email}"
+               required>
+
+        <label>Phone Number</label>
+        <input type="tel"
+               name="phone"
+               th:value="${student.phone}">
+
+        <button type="submit" class="save-btn">
+            Save Changes
+        </button>
+
+    </form>
+
+    <a th:href="@{/admin/students}" class="back">
+        ← Back to Student Management
+    </a>
+
+</div>
+
+</body>
+</html>

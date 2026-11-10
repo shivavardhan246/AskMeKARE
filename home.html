@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AskMeKare | College Information Portal</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<!-- NAVIGATION BAR -->
+<header class="navbar">
+
+    <a href="/" class="brand">
+        <span class="brand-icon">A</span>
+        <span>AskMe<span class="gold">Kare</span></span>
+    </a>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+    </nav>
+
+    <div class="nav-actions">
+
+        <a href="/admin-login" class="login-link">
+            Admin Login
+        </a>
+
+        <a href="/student-login" class="login-link">
+            Student Login
+        </a>
+
+        <a href="/register" class="btn btn-small">
+            Get Started
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- HERO SECTION -->
+<section class="hero">
+
+    <div class="hero-content">
+
+        <p class="hero-label">
+            YOUR COLLEGE INFORMATION ASSISTANT
+        </p>
+
+        <h1>
+            Everything About Your College.
+            <span class="gold">One Place.</span>
+        </h1>
+
+        <p>
+            Get reliable information about examinations,
+            hostels, events, clubs and college activities.
+            Just ask a question and find the information you need.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/student-login" class="btn">
+                Start Asking Questions
+            </a>
+
+            <a href="#features" class="btn">
+                Explore AskMeKare
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT SECTION -->
+<section id="about">
+
+    <p class="section-label">ABOUT THE PLATFORM</p>
+
+    <h2>College information, made easier.</h2>
+
+    <p>
+        AskMeKare brings important college information
+        together in one organized place, helping students
+        find answers without searching through multiple sources.
+    </p>
+
+</section>
+
+
+<!-- FEATURES SECTION -->
+<section class="features-section" id="features">
+
+    <p class="section-label">WHAT YOU CAN EXPLORE</p>
+
+    <h2>One portal. Multiple answers.</h2>
+
+    <div class="feature-grid">
+
+        <article class="feature-card">
+
+            <span class="feature-number">01</span>
+
+            <h3>Examinations</h3>
+
+            <p>
+                Find examination schedules, notices
+                and academic updates.
+            </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <span class="feature-number">02</span>
+
+            <h3>Hostel Information</h3>
+
+            <p>
+                Explore hostel details, facilities
+                and student accommodation information.
+            </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <span class="feature-number">03</span>
+
+            <h3>College Events</h3>
+
+            <p>
+                Stay updated about college events,
+                celebrations and activities.
+            </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+            <span class="feature-number">04</span>
+
+            <h3>College Updates</h3>
+
+            <p>
+                Stay informed about events, notices
+                and college announcements.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <a href="/" class="brand">
+        AskMe<span class="gold">Kare</span>
+    </a>
+
+    <p>
+        Making college information easier to access.
+    </p>
+
+    <p>
+        © 2026 AskMeKare. All rights reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>

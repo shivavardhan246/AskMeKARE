@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AskMeKARE - Chatbot</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b111a;
+            color: #f3f5fa;
+        }
+
+        header {
+            padding: 18px 7%;
+            background: #131e2c;
+            border-bottom: 1px solid #2a3a50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: #f5bd50;
+            margin: 0;
+        }
+
+        header a {
+            color: #f5bd50;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 25px auto;
+            padding: 15px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .welcome h1 {
+            color: #f5bd50;
+        }
+
+        .welcome p {
+            color: #a9b6ca;
+        }
+
+        .chat-box {
+            background: #131e2c;
+            border: 1px solid #2a3a50;
+            border-radius: 15px;
+            padding: 20px;
+            min-height: 350px;
+            max-height: 550px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .welcome-message {
+            background: #1d2b3d;
+            padding: 15px;
+            border-radius: 12px;
+            max-width: 80%;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .message {
+            display: flex;
+            margin: 15px 0;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .bubble {
+            max-width: 80%;
+            padding: 13px 16px;
+            border-radius: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .user-message .bubble {
+            background: #f5bd50;
+            color: #111820;
+            border-bottom-right-radius: 3px;
+        }
+
+        .bot-message .bubble {
+            background: #1d2b3d;
+            color: #f3f5fa;
+            border-bottom-left-radius: 3px;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        textarea {
+            flex: 1;
+            resize: vertical;
+            min-height: 55px;
+            max-height: 140px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #2a3a50;
+            background: #131e2c;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        button {
+            background: #f5bd50;
+            color: #111820;
+            border: none;
+            border-radius: 10px;
+            padding: 0 22px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e4a82f;
+        }
+
+        .clear-area {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .clear-button {
+            padding: 10px 16px;
+            background: #26364a;
+            color: #f3f5fa;
+        }
+
+        .clear-button:hover {
+            background: #354b65;
+        }
+
+        .history-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #f5bd50;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 15px;
+            }
+
+            .container {
+                margin: 10px auto;
+            }
+
+            .input-area {
+                flex-direction: column;
+            }
+
+            button {
+                min-height: 48px;
+            }
+
+            .bubble {
+                max-width: 92%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>AskMeKARE</h2>
+    <a th:href="@{/dashboard}">Dashboard</a>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h1>College Information Assistant</h1>
+        <p>Ask questions about your college.</p>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+
+        <div class="welcome-message">
+            Hello! Welcome to AskMeKARE.
+            How can I help you today?
+        </div>
+
+        <div th:each="chat : ${chatHistory}"
+             class="message"
+             th:classappend="${chat['sender'] == 'You'} ? ' user-message' : ' bot-message'">
+
+            <div class="bubble"
+                 th:text="${chat['message']}">
+            </div>
+
+        </div>
+
+    </div>
+
+    <form th:action="@{/chatbot/ask}" method="post">
+
+        <div class="input-area">
+
+            <textarea
+                    name="question"
+                    placeholder="Type your question here..."
+                    required></textarea>
+
+            <button type="submit">Send</button>
+
+        </div>
+
+    </form>
+
+    <div>
+        <a class="history-link" th:href="@{/chat-history}">
+            View Recent Questions
+        </a>
+    </div>
+
+    <div class="clear-area">
+
+        <form th:action="@{/chatbot/clear}"
+              method="post"
+              onsubmit="return confirm('Are you sure you want to clear this conversation?');">
+
+            <button type="submit" class="clear-button">
+                Clear Chat
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    const chatBox = document.getElementById("chatBox");
+    chatBox.scrollTop = chatBox.scrollHeight;
+</script>
+
+</body>
+</html>

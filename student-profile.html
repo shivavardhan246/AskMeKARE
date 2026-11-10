@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - AskMeKARE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: #0b111a;
+            color: #f3f5fa;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 50px auto;
+        }
+
+        .profile-card {
+            background: #131e2c;
+            border: 1px solid #2a3a50;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #f5bd50;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .profile-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #2a3a50;
+        }
+
+        .profile-item:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            display: block;
+            color: #a9b6ca;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .value {
+            font-size: 17px;
+            overflow-wrap: anywhere;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 20px;
+            background: #f5bd50;
+            color: #0b111a;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="profile-card">
+
+        <h1>My Profile</h1>
+
+        <div class="profile-item">
+            <span class="label">Student Name</span>
+            <div class="value" th:text="${student.name}">Student Name</div>
+        </div>
+
+        <div class="profile-item">
+            <span class="label">Email Address</span>
+            <div class="value" th:text="${student.email}">Email</div>
+        </div>
+
+        <div class="profile-item">
+            <span class="label">Phone Number</span>
+            <div class="value"
+                 th:text="${student.phone != null and !#strings.isEmpty(student.phone) ? student.phone : 'Not provided'}">
+                Phone
+            </div>
+        </div>
+
+        <div class="center">
+            <a href="/dashboard" class="back-link">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

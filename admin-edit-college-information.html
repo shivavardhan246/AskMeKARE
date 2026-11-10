@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit College Information | AskMeKARE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #0b111a;
+            color: #f3f5fa;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            color: #f5bd50;
+        }
+
+        .form-card {
+            background: #131e2c;
+            padding: 30px;
+            border: 1px solid #2a3a50;
+            border-radius: 12px;
+        }
+
+        label {
+            display: block;
+            margin: 18px 0 8px;
+            font-weight: bold;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #2a3a50;
+            border-radius: 6px;
+            background: #0b111a;
+            color: #f3f5fa;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button, .back-btn {
+            display: inline-block;
+            margin-top: 22px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #f5bd50;
+            color: #0b111a;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            margin-left: 10px;
+            background: #2a3a50;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Edit College Information</h1>
+    <p>Update the existing college information.</p>
+
+    <div class="form-card">
+
+        <form th:action="@{/admin/college-information/update}"
+              th:object="${information}"
+              method="post">
+
+            <input type="hidden" th:field="*{id}">
+
+            <label for="title">Information Title</label>
+            <input type="text"
+                   id="title"
+                   th:field="*{title}"
+                   required>
+
+            <label for="category">Category</label>
+            <select id="category" th:field="*{category}" required>
+                <option value="">Select Category</option>
+
+                <option th:each="category : ${categories}"
+                        th:value="${category.name}"
+                        th:text="${category.name}">
+                </option>
+            </select>
+
+            <label for="description">Description</label>
+            <textarea id="description"
+                      th:field="*{description}"
+                      required></textarea>
+
+            <button type="submit">Update Information</button>
+
+            <a th:href="@{/admin/college-information}"
+               class="back-btn">Cancel</a>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

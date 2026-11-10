@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add College Facility | AskMeKARE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background: #0b111a;
+            color: #f3f5fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 30px auto;
+            background: #131e2c;
+            border: 1px solid #2a3a50;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        h1 {
+            color: #f5bd50;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #2a3a50;
+            background: #0b111a;
+            color: #f3f5fa;
+        }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #f5bd50;
+            color: #0b111a;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .error {
+            color: #ff8585;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Add College Facility</h1>
+    <p>Add information about a college facility.</p>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form th:action="@{/admin/facilities/save}"
+          th:object="${facility}"
+          method="post">
+
+        <label for="name">Facility Name</label>
+        <input type="text"
+               id="name"
+               th:field="*{name}"
+               placeholder="Example: Central Library"
+               required>
+
+        <label for="category">Category</label>
+        <select id="category" th:field="*{category}">
+            <option value="">Select Category</option>
+            <option value="Library">Library</option>
+            <option value="Laboratory">Laboratory</option>
+            <option value="Classrooms">Classrooms</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Sports Facilities">Sports Facilities</option>
+            <option value="Canteen">Canteen</option>
+            <option value="Auditorium">Auditorium</option>
+            <option value="Transport">Transport</option>
+            <option value="Other Facilities">Other Facilities</option>
+        </select>
+
+        <label for="location">Location</label>
+        <input type="text"
+               id="location"
+               th:field="*{location}"
+               placeholder="Example: Main Block, Ground Floor">
+
+        <label for="description">Facility Description</label>
+        <textarea id="description"
+                  th:field="*{description}"
+                  placeholder="Enter timings, facilities, rules and other details..."
+                  required></textarea>
+
+        <button type="submit" class="btn">
+            Save Facility
+        </button>
+
+        <a th:href="@{/admin/facilities}" class="btn">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

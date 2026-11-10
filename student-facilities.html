@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>College Facilities | AskMeKARE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #0b111a;
+            color: #f3f5fa;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #f5bd50;
+        }
+
+        .subtitle {
+            color: #a9b6ca;
+            margin-bottom: 30px;
+        }
+
+        .facility-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .facility-card {
+            background: #131e2c;
+            border: 1px solid #2a3a50;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .facility-card h2 {
+            color: #f5bd50;
+        }
+
+        .facility-card p {
+            color: #a9b6ca;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 17px;
+            background: #f5bd50;
+            color: #0b111a;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .empty-message {
+            color: #a9b6ca;
+            padding: 20px;
+            background: #131e2c;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>College Facilities</h1>
+
+    <p class="subtitle">
+        Explore the facilities and services available at KARE.
+    </p>
+
+    <div th:if="${#lists.isEmpty(facilities)}"
+         class="empty-message">
+
+        No college facilities have been added yet.
+
+    </div>
+
+    <div class="facility-grid">
+
+        <div class="facility-card"
+             th:each="facility : ${facilities}">
+
+            <h2 th:text="${facility.name}">
+                Facility Name
+            </h2>
+
+            <p>
+                <strong>Category:</strong>
+                <span th:text="${facility.category ?: 'Not specified'}">
+                </span>
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                <span th:text="${facility.location ?: 'Not specified'}">
+                </span>
+            </p>
+
+            <p th:text="${facility.description}">
+                Facility description
+            </p>
+
+            <a th:href="@{/student/facilities/{id}(id=${facility.id})}"
+               class="btn">
+                View Details & Photos
+            </a>
+
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <a th:href="@{/dashboard}" class="btn">
+        Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details - AskMeKARE</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: Arial, sans-serif;
+      background: #0b111a;
+      color: #f3f5fa;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #131e2c;
+      border: 1px solid #2a3a50;
+      border-radius: 12px;
+    }
+
+    h2 {
+      color: #f5bd50;
+      text-align: center;
+    }
+
+    .detail {
+      padding: 16px 0;
+      border-bottom: 1px solid #2a3a50;
+    }
+
+    .detail strong {
+      display: inline-block;
+      width: 130px;
+      color: #a9b6ca;
+    }
+
+    .actions {
+      margin-top: 25px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 11px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back {
+      background: #2a3a50;
+      color: white;
+    }
+
+    .edit {
+      background: #f5bd50;
+      color: #0b111a;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>Student Details</h2>
+
+  <div class="detail">
+    <strong>Student ID:</strong>
+    <span th:text="${student.id}"></span>
+  </div>
+
+  <div class="detail">
+    <strong>Name:</strong>
+    <span th:text="${student.name}"></span>
+  </div>
+
+  <div class="detail">
+    <strong>Email:</strong>
+    <span th:text="${student.email}"></span>
+  </div>
+
+  <div class="detail">
+    <strong>Phone:</strong>
+    <span th:text="${student.phone}"></span>
+  </div>
+
+  <div class="actions">
+
+    <a th:href="@{/admin/students}" class="btn back">
+      Back to Students
+    </a>
+
+    <a th:href="@{/admin/students/edit/{id}(id=${student.id})}"
+       class="btn edit">
+      Edit Student
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration | AskMeKare</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Registration</h1>
+    <p>Create your AskMeKare student account</p>
+
+    <p th:if="${success}" th:text="${success}"
+       style="color: green;"></p>
+
+    <p th:if="${error}" th:text="${error}"
+       style="color: red;"></p>
+
+    <form th:action="@{/register}"
+          th:object="${student}"
+          method="post">
+
+        <label>Full Name</label>
+        <input type="text" th:field="*{name}"
+               placeholder="Enter your name" required>
+
+        <label>Email Address</label>
+        <input type="email" th:field="*{email}"
+               placeholder="Enter your email" required>
+
+        <label>Phone Number</label>
+        <input type="tel" th:field="*{phone}"
+               placeholder="Enter phone number" required>
+
+        <label>Password</label>
+        <input type="password" th:field="*{password}"
+               placeholder="Create password" required>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p>Already have an account?
+        <a th:href="@{/student-login}">Login</a>
+    </p>
+
+    <a th:href="@{/}">Back to Home</a>
+
+</div>
+
+</body>
+</html>
